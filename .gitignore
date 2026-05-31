@@ -1,0 +1,70 @@
+# Git ignore file for RK3588 Medicine Delivery Robot
+
+# ROS2 build artifacts
+build/
+install/
+log/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+*.egg
+
+# Backup files
+*.backup
+*.backup_*
+*.bak
+*~
+
+# Temporary files
+/tmp/
+*.tmp
+*.log
+
+# Database files (keep structure, ignore data)
+*.db
+*.db-journal
+
+# Large binary files
+*.deb
+*.rknn
+*.jpg
+*.png
+*.mp4
+*.avi
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Hardware documentation (too large)
+1.激光雷达说明书/
+2.系统镜像/
+3.雷达基础课程/
+4.建图案例/
+5.扩展开发资料/
+M2系列麦克风语音阵列客户资料*/
+Linux_awaken_esr_xtts_aisound*/
+platform-tools/
+摄像头/
+语音/
+附录/
+附赠资料/
+
+# Keep important files
+!README.md
+!*.sh
+!*.py
+!*.yaml
+!*.md

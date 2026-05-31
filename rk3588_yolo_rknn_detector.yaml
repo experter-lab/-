@@ -1,0 +1,17 @@
+medicine_yolo_rknn_detector:
+  ros__parameters:
+    model_path: /mnt/sdcard/medicine_robot_data/models/yolov8n_rk3588.rknn
+    camera_device: /dev/video21
+    camera_width: 1280
+    camera_height: 1024
+    camera_fps: 15
+    camera_fourcc: MJPG
+    input_size: 640
+    detection_period_sec: 0.5
+    confidence_threshold: 0.25
+    nms_threshold: 0.45
+    detections_topic: /medicine/vision_detections
+    status_topic: /medicine/yolo_rknn_status
+    rknn_core_mask: auto
+    class_filter: person,bottle,box,package,medicine,drug,label
+    publish_empty_detections: true

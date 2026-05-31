@@ -1,0 +1,28 @@
+medicine_vision_detector:
+  ros__parameters:
+    input_mode: camera
+    camera_device: /dev/video21
+    camera_width: 1280
+    camera_height: 720
+    camera_fps: 30
+    camera_fourcc: MJPG
+    camera_read_period_sec: 0.05
+    enable_preview_server: true
+    preview_host: 0.0.0.0
+    preview_port: 8090
+    preview_quality: 75
+    preview_draw_overlay: true
+    preview_stream_period_sec: 0.05
+    enable_qr_recognition: true
+    enable_datamatrix_recognition: true
+    enable_zxingcpp_recognition: true
+    enable_pylibdmtx_recognition: false
+    qr_recognition_period_sec: 0.15
+    qr_fast_mode: false
+    qr_scale_factor: 1.5
+    qr_extra_scale_factors: "1.0,1.5,2.0,2.5"
+    external_decoder_period_sec: 0.4
+    external_decoder_timeout_sec: 1.2
+    enable_isolated_zxingcpp_recognition: true
+    enable_opencv_curved_qr_recognition: true
+    enable_ocr_recognition: false
