@@ -6,14 +6,36 @@
 
 - GitHub: https://github.com/experter-lab/-.git
 
-## 主要模块
+## 快速查看
+
+- [项目目录结构](docs/PROJECT_STRUCTURE.md)
+- [比赛设计报告 PDF](docs/competition/智能送药机器人_作品设计报告.pdf)
+- [快速开始指南](docs/guides/QUICKSTART.md)
+
+## 主要目录
+
+| 目录 | 说明 |
+| --- | --- |
+| `board_sync/` | RK3588 板端 ROS 2 功能包源码，包含 Dashboard、视觉识别、语音桥接等。 |
+| `patient_web/` | 患者端 Web 前端工程。 |
+| `src/` | Dashboard 镜像代码、数据库集成、雷达驱动补丁等核心辅助源码。 |
+| `scripts/` | RK3588 启动、导航、视觉、语音、底盘、安全、同步脚本。 |
+| `configs/` | 导航、视觉、底盘、systemd、RViz、udev、桌面快捷方式等配置。 |
+| `docs/` | 比赛材料、部署指南、项目报告、实验资料。 |
+| `tests/` | 验证脚本、硬件探针、接口测试脚本。 |
+| `maps/` | SLAM/导航地图文件。 |
+| `tools/` | RK3588 备份/恢复、Codex 上下文导出等本地工具。 |
+| `memories/` | 项目长期记忆和开发上下文摘要。 |
+
+## 核心模块
 
 - `board_sync/medicine_web_dashboard/`：8085 护士/管理端与 8081 患者端 Web 服务代码。
 - `board_sync/medicine_vision_detector/`：药品视觉识别、OCR、条码/追溯码识别相关节点。
 - `patient_web/`：患者端前端工程。
-- `rk3588_start_*.sh`、`rk3588_*nav*`、`carto_*`：RK3588 端启动、导航、建图和定位脚本。
-- `chassis_bridge_node.py`、`chassis_bridge*.yaml`：底盘安全桥接与配置。
-- `tools/`：备份、恢复和 Codex 上下文导出工具。
+- `scripts/rk3588/startup/`：RK3588 端核心服务启动脚本。
+- `scripts/rk3588/navigation/`：Cartographer / Nav2 / 雷达建图定位调试脚本。
+- `scripts/rk3588/chassis/`：底盘安全、ArduPilot、串口、舵机与急停相关脚本。
+- `configs/navigation/`、`configs/vision/`、`configs/chassis/`：主要运行配置。
 
 ## 设计资料
 

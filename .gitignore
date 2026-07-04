@@ -127,10 +127,6 @@ M2*/
 3.*/
 4.*/
 5.*/
-??/
-????/
-???/
-??/
 
 # Node/frontend generated files
 node_modules/
@@ -154,4 +150,3 @@ _utf8_write_test.md
 *.old
 # Local Codex cross-client notes (may contain private IPs/session details)
 docs/codex-worklog.md
-
