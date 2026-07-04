@@ -150,3 +150,5 @@ _utf8_write_test.md
 *.old
 # Local Codex cross-client notes (may contain private IPs/session details)
 docs/codex-worklog.md
+docs/codex-session-summary.md
+docs/rk3588-backup-restore.md

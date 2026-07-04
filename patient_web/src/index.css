@@ -1,0 +1,313 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * shadcn/ui 主题变量 - 医院青绿色 (emerald)
+ * 浅色为默认, 暗色为可选
+ */
+@layer base {
+  :root {
+    --background: 150 30% 98%;
+    --foreground: 160 35% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 160 35% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 160 35% 12%;
+
+    /* primary: emerald-600 + soft tint */
+    --primary: 160 84% 32%;
+    --primary-foreground: 0 0% 100%;
+    --primary-soft: 152 60% 94%;
+
+    --secondary: 152 24% 95%;
+    --secondary-foreground: 160 35% 18%;
+
+    --muted: 152 22% 95%;
+    --muted-foreground: 160 8% 42%;
+
+    --accent: 152 35% 93%;
+    --accent-foreground: 160 35% 18%;
+
+    --destructive: 0 75% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 152 18% 88%;
+    --input: 152 18% 88%;
+    --ring: 160 84% 32%;
+
+    --radius: 0.875rem;
+
+    /* 全局阴影色调 */
+    --shadow-color: 160 30% 10%;
+  }
+
+  .dark {
+    --background: 160 35% 8%;
+    --foreground: 150 15% 95%;
+    --card: 160 30% 12%;
+    --card-foreground: 150 15% 95%;
+    --popover: 160 30% 12%;
+    --popover-foreground: 150 15% 95%;
+    --primary: 160 70% 45%;
+    --primary-foreground: 0 0% 100%;
+    --primary-soft: 160 50% 18%;
+    --secondary: 160 20% 18%;
+    --secondary-foreground: 150 15% 95%;
+    --muted: 160 20% 18%;
+    --muted-foreground: 160 10% 65%;
+    --accent: 160 20% 22%;
+    --accent-foreground: 150 15% 95%;
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 160 20% 20%;
+    --input: 160 20% 20%;
+    --ring: 160 70% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    /* 病人友好: 默认根字号偏大 (tailwind rem 单位会跟着放大) */
+    /* 由 SettingsContext 在运行时按 fontScale 动态覆盖 */
+    font-size: 17px;
+  }
+  html,
+  body,
+  #root {
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+      "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    /* impeccable: 三层 radial-mesh 砍到单层弱光, 让信息密度上升 */
+    background-image:
+      radial-gradient(circle at 18% -8%, hsl(var(--primary) / 0.12), transparent 42%),
+      radial-gradient(circle at 88% 12%, hsl(200 90% 60% / 0.08), transparent 34%),
+      linear-gradient(180deg, hsl(150 30% 98%) 0%, hsl(155 28% 96%) 100%);
+    background-attachment: fixed;
+  }
+  /* 禁止文本选中蓝色高亮 (病人误触常见) */
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* 滚动条更精致 */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.4);
+  }
+}
+
+@layer components {
+  /* 玻璃拟物表面: header / 浮层用 */
+  .surface-glass {
+    background-color: hsl(var(--background) / 0.78);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+  }
+
+  /* 脉冲光圈 (用于"配送中" / 呼叫态指示) */
+
+  .glass-panel {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid hsl(var(--border) / 0.78);
+    background:
+      linear-gradient(180deg, hsl(0 0% 100% / 0.82), hsl(150 28% 98% / 0.66));
+    backdrop-filter: saturate(180%) blur(18px);
+    -webkit-backdrop-filter: saturate(180%) blur(18px);
+    box-shadow:
+      inset 0 1px 0 hsl(0 0% 100% / 0.86),
+      0 8px 24px -18px hsl(160 35% 10% / 0.42);
+  }
+
+  .glass-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 12% 0%, hsl(0 0% 100% / 0.74), transparent 36%),
+      linear-gradient(90deg, hsl(0 0% 100% / 0.22), transparent 48%);
+  }
+
+  .glass-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .glass-card {
+    border: 1px solid hsl(var(--border) / 0.72);
+    background: hsl(var(--card) / 0.74);
+    backdrop-filter: saturate(170%) blur(14px);
+    -webkit-backdrop-filter: saturate(170%) blur(14px);
+    box-shadow:
+      inset 0 1px 0 hsl(0 0% 100% / 0.72),
+      0 6px 18px -16px hsl(160 35% 10% / 0.5);
+  }
+
+  .glass-primary {
+    background:
+      linear-gradient(135deg, hsl(var(--primary) / 0.92), hsl(168 78% 36% / 0.86));
+    backdrop-filter: saturate(190%) blur(18px);
+    -webkit-backdrop-filter: saturate(190%) blur(18px);
+    box-shadow:
+      inset 0 1px 0 hsl(0 0% 100% / 0.34),
+      0 10px 28px -18px hsl(var(--primary) / 0.7);
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .surface-glass,
+    .glass-panel,
+    .glass-card,
+    .glass-primary {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .glass-panel,
+    .glass-card {
+      background: hsl(var(--card));
+    }
+
+    .glass-primary {
+      background: hsl(var(--primary));
+    }
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .surface-glass,
+    .glass-panel,
+    .glass-card,
+    .glass-primary {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .glass-panel,
+    .glass-card {
+      background: hsl(var(--card));
+    }
+  }
+  .pulse-ring-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pulse-ring-wrap::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    background: hsl(var(--primary) / 0.5);
+    animation: pulse-ring 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  /* shimmer 占位骨架 */
+  .shimmer {
+    background-image: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 0%,
+      hsl(var(--secondary)) 50%,
+      hsl(var(--muted)) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2.2s linear infinite;
+  }
+
+  /* 医院 watermark 纹理 (淡淡的十字) */
+  .pattern-cross {
+    background-image:
+      linear-gradient(hsl(var(--primary) / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--primary) / 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* 限定 root container 宽度: 手机优先, PC 上不会拉太宽 */
+  .app-shell {
+    width: 100%;
+    max-width: min(560px, 100%);
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .mobile-fit {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+/* 2026-06-29 patient mobile hardening: avoid clipped medical text and reduce mis-taps. */
+@layer components {
+  .patient-readable,
+  .glass-panel,
+  .glass-card {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .patient-sticky-safe {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+
+  @media (max-width: 430px) {
+    .app-shell {
+      max-width: 100%;
+    }
+
+    .glass-panel,
+    .glass-card {
+      border-radius: 1rem;
+    }
+
+    [role="dialog"] {
+      width: calc(100vw - 1rem) !important;
+      max-height: 92svh;
+    }
+
+    button,
+    [role="button"] {
+      min-height: 44px;
+      touch-action: manipulation;
+    }
+
+    .truncate {
+      white-space: normal;
+      overflow: visible;
+      text-overflow: clip;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
