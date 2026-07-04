@@ -1,0 +1,39 @@
+﻿# Keep Linux/ROS deployment scripts portable from Windows checkouts
+*.sh text eol=lf
+*.py text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.lua text eol=lf
+*.launch.py text eol=lf
+*.cpp text eol=lf
+*.c text eol=lf
+*.h text eol=lf
+*.hpp text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.xml text eol=lf
+*.cfg text eol=lf
+*.desktop text eol=lf
+*.rviz text eol=lf
+*.txt text eol=lf
+
+# Windows helper scripts
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+
+# Binary map/model/image/archive formats
+*.pgm binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.onnx binary
+*.rknn binary
+*.zip binary
+*.rar binary
+*.7z binary
+*.tar binary
+*.gz binary
+*.pdf binary
+*.doc binary
+*.docx binary
+*.bin binary

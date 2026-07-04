@@ -1,0 +1,19 @@
+[Unit]
+Description=RK3588 chassis auto-wake + authorize keepalive
+Wants=rk3588-chassis-bridge.service
+After=rk3588-chassis-bridge.service
+PartOf=rk3588-chassis-bridge.service
+
+[Service]
+Type=simple
+User=elf
+WorkingDirectory=/mnt/sdcard/medicine_robot_ws
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/bin/bash /mnt/sdcard/medicine_robot_data/scripts/chassis_wake_keepalive.sh
+Restart=on-failure
+RestartSec=10
+KillSignal=SIGTERM
+TimeoutStopSec=15
+
+[Install]
+WantedBy=multi-user.target

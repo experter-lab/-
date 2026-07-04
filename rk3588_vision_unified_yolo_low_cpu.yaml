@@ -14,6 +14,7 @@ medicine_vision_detector:
     preview_draw_overlay: true
     preview_stream_period_sec: 0.3
     preview_encode_period_sec: 0.3
+    preview_idle_timeout_sec: 1.0
     enable_qr_recognition: true
     enable_datamatrix_recognition: true
     enable_zxingcpp_recognition: true

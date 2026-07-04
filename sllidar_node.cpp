@@ -78,6 +78,7 @@ class SLlidarNode : public rclcpp::Node
         this->declare_parameter<bool>("angle_compensate", true);
         this->declare_parameter<std::string>("scan_mode", "");
         this->declare_parameter<double>("scan_frequency", 10.0);
+        this->declare_parameter<double>("range_min_filter", 0.0);
 
         this->get_parameter_or<std::string>("channel_type", channel_type, "serial");
         this->get_parameter_or<std::string>("tcp_ip", tcp_ip, "192.168.0.7"); 
@@ -93,6 +94,9 @@ class SLlidarNode : public rclcpp::Node
         double configured_scan_frequency = channel_type == "udp" ? 20.0 : 10.0;
         this->get_parameter_or<double>("scan_frequency", configured_scan_frequency, configured_scan_frequency);
         scan_frequency = static_cast<float>(configured_scan_frequency);
+        double configured_range_min_filter = 0.0;
+        this->get_parameter_or<double>("range_min_filter", configured_range_min_filter, 0.0);
+        range_min_filter = static_cast<float>(configured_range_min_filter);
     }
 
     bool getSLLIDARDeviceInfo(ILidarDriver * drv)
@@ -220,7 +224,8 @@ class SLlidarNode : public rclcpp::Node
 
         scan_msg->scan_time = scan_time;
         scan_msg->time_increment = scan_time / (double)(node_count-1);
-        scan_msg->range_min = 0.15;
+        const float effective_range_min = range_min_filter > 0.0f ? range_min_filter : 0.15f;
+        scan_msg->range_min = effective_range_min;
         scan_msg->range_max = max_distance;//8.0;
 
         scan_msg->intensities.resize(node_count);
@@ -229,7 +234,7 @@ class SLlidarNode : public rclcpp::Node
         if (!reverse_data) {
             for (size_t i = 0; i < node_count; i++) {
                 float read_value = (float) nodes[i].dist_mm_q2/4.0f/1000;
-                if (read_value == 0.0)
+                if (read_value == 0.0 || read_value < effective_range_min)
                     scan_msg->ranges[i] = std::numeric_limits<float>::infinity();
                 else
                     scan_msg->ranges[i] = read_value;
@@ -238,7 +243,7 @@ class SLlidarNode : public rclcpp::Node
         } else {
             for (size_t i = 0; i < node_count; i++) {
                 float read_value = (float)nodes[i].dist_mm_q2/4.0f/1000;
-                if (read_value == 0.0)
+                if (read_value == 0.0 || read_value < effective_range_min)
                     scan_msg->ranges[node_count-1-i] = std::numeric_limits<float>::infinity();
                 else
                     scan_msg->ranges[node_count-1-i] = read_value;
@@ -455,6 +460,7 @@ public:
     size_t angle_compensate_multiple = 1;//it stand of angle compensate at per 1 degree
     std::string scan_mode;
     float scan_frequency;
+    float range_min_filter = 0.0f;
 
     ILidarDriver * drv;    
 };
@@ -475,4 +481,3 @@ int main(int argc, char * argv[])
   rclcpp::shutdown();
   return ret;
 }
-

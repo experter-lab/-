@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=启用Nav2驱动
+Comment=Authorize chassis control for Nav2
+Exec=gnome-terminal -- bash -lc "/mnt/sdcard/nomachine_enable_nav2_drive.sh"
+Icon=media-playback-start
+Terminal=false
+Categories=Utility;

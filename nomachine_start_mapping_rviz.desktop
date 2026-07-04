@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=启动建图RViz2
+Comment=Start or reuse Cartographer mapping and open RViz2
+Exec=gnome-terminal -- bash -lc "/mnt/sdcard/nomachine_start_mapping_rviz.sh"
+Icon=applications-graphics
+Terminal=false
+Categories=Utility;

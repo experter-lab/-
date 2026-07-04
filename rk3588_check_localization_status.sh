@@ -16,6 +16,40 @@ check_node() {
   fi
 }
 
+check_any_node() {
+  local label="$1"
+  shift
+  local node
+  local nodes
+  nodes="$(ros2 node list 2>/dev/null || true)"
+  for node in "$@"; do
+    if echo "$nodes" | grep -Fxq "$node"; then
+      echo "OK node $label as $node"
+      return 0
+    fi
+  done
+  echo "FAIL node $label missing; expected one of: $*"
+  FAIL=1
+}
+
+warn_any_node_count_exact() {
+  local label="$1"
+  local expected="$2"
+  shift 2
+  local node count total=0
+  local nodes
+  nodes="$(ros2 node list 2>/dev/null || true)"
+  for node in "$@"; do
+    count="$(echo "$nodes" | awk -v node="$node" '$0 == node {count++} END {print count + 0}')"
+    total=$((total + count))
+  done
+  if [[ "$total" = "$expected" ]]; then
+    echo "OK node-count $label count=$total"
+  else
+    echo "WARN node-count $label count=$total expected=$expected; relying on single /odom publisher and TF checks"
+  fi
+}
+
 check_lifecycle_active() {
   local node="$1"
   local state
@@ -37,6 +71,22 @@ check_topic_publishers() {
     echo "$info" | sed 's/^/  /'
   else
     echo "FAIL topic $topic"
+    echo "$info" | sed 's/^/  /'
+    FAIL=1
+  fi
+}
+
+check_topic_publishers_exact() {
+  local topic="$1"
+  local expected="$2"
+  local info count
+  info="$(ros2 topic info "$topic" 2>/dev/null || true)"
+  count="$(echo "$info" | awk '/Publisher count:/ {print $3; found=1} END {if (!found) print 0}')"
+  if [[ "$count" = "$expected" ]]; then
+    echo "OK topic-publishers $topic count=$count"
+    echo "$info" | sed 's/^/  /'
+  else
+    echo "FAIL topic-publishers $topic count=$count expected=$expected"
     echo "$info" | sed 's/^/  /'
     FAIL=1
   fi
@@ -69,7 +119,18 @@ check_tf() {
   fi
 }
 
-echo "=== RK3588 localization status ==="
+check_process_absent() {
+  local pattern="$1"
+  if pgrep -f "$pattern" >/dev/null 2>&1; then
+    echo "FAIL obsolete process still running: $pattern"
+    pgrep -fa "$pattern" | sed 's/^/  /'
+    FAIL=1
+  else
+    echo "OK obsolete process absent: $pattern"
+  fi
+}
+
+echo "=== RK3588 Cartographer localization status ==="
 date
 hostname
 uptime
@@ -83,28 +144,29 @@ df -h / /mnt/sdcard 2>/dev/null || df -h /
 echo "--- ros nodes ---"
 ros2 node list || true
 
-check_node /sllidar_node
-check_node /base_to_laser_tf
-check_node /CLaserOdometry2DNode
-check_node /map_server
-check_node /amcl
+check_lifecycle_active /static_map_server
+check_any_node RF2O /CLaserOdometry2DNode /rf2o_laser_odometry
+warn_any_node_count_exact RF2O 1 /CLaserOdometry2DNode /rf2o_laser_odometry
+check_node /rk3588_guarded_odom
+check_node /ekf_filter_node
 
-check_lifecycle_active /map_server
-check_lifecycle_active /amcl
-
-check_topic_publishers /scan
-check_topic_publishers /odom
+check_topic_publishers_exact /scan 1
+check_topic_publishers_exact /imu 1
+check_topic_publishers_exact /rf2o/odom_raw 1
+check_topic_publishers_exact /odom_rf2o_guarded 1
+check_topic_publishers_exact /odom 1
 check_topic_publishers /map
-check_topic_publishers /amcl_pose
-check_topic_publishers /particle_cloud
+check_topic_publishers /map_static
+check_topic_publishers /tf
+check_topic_publishers /tf_static
 
 check_msg_once /scan 8
-check_msg_once /odom 8
-check_msg_once /amcl_pose 8
+check_msg_once /map_static 8
 
 check_tf map odom
 check_tf odom base_link
 check_tf base_link laser
+check_process_absent "rk3588_tf_odom_publisher.py"
 
 if [ "$FAIL" -eq 0 ]; then
   echo "RESULT OK localization stack is healthy"

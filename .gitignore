@@ -68,3 +68,90 @@ platform-tools/
 !*.py
 !*.yaml
 !*.md
+
+# --- GitHub upload safety (added by Codex 2026-07-04) ---
+# Local agent/editor context and generated conversation exports
+.claude/
+.codex/
+.cursor/
+docs/codex-cli-history.md
+
+# Secrets and private runtime config
+.env
+.env.*
+*.env
+*.key
+*.pem
+*.p12
+*.pfx
+*secret*
+*private*
+ai_api.env
+!*.env.example
+!ai_api.env.example
+
+# Local backups, deliverables, generated archives, datasets, logs
+backups/
+deliverables/
+kb_upload_tmp/
+test_results/
+multisim_exp6_results/
+_tmp*/
+tmp_*/
+_tmp_*
+tmp_*
+*.zip
+*.rar
+*.7z
+*.tar
+*.tar.gz
+*.tgz
+*.iso
+*.bin
+*.doc
+*.docx
+*.pdf
+
+# Large model / vendor SDK / hardware-course bundles
+*.onnx
+*.rknn
+*.pt
+*.pth
+*.engine
+rknn_ppocr*/
+platform-tools/
+Linux_awaken*/
+M2*/
+1.*/
+2.*/
+3.*/
+4.*/
+5.*/
+??/
+????/
+???/
+??/
+
+# Node/frontend generated files
+node_modules/
+patient_web/node_modules/
+patient_web/dist/
+patient_web/.vite/
+patient_web/.env*
+
+# Local verification scratch files
+_verify*.py
+verify_*_remote.sh
+*_snapshot*.py
+ole_streams.json
+worddoc_hit.txt
+# More local scratch/build metadata
+*.tsbuildinfo
+_dashboard_script_check.js
+_utf8_write_test.md
+*.bak_before_*
+*.bak_*
+*.old
+# Local Codex cross-client notes (may contain private IPs/session details)
+docs/codex-worklog.md
+

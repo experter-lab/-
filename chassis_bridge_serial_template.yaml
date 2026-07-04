@@ -1,0 +1,26 @@
+chassis_bridge:
+  ros__parameters:
+    mode: serial
+    cmd_vel_topic: /cmd_vel
+    odom_topic: /odom
+    status_topic: /medicine/chassis_status
+    base_frame_id: base_link
+    odom_frame_id: odom
+    publish_tf: true
+    control_rate_hz: 30.0
+    odom_publish_rate_hz: 30.0
+    cmd_timeout_sec: 0.3
+    max_linear_speed: 0.35
+    max_angular_speed: 0.8
+    max_linear_accel: 0.5
+    max_angular_accel: 1.2
+    wheel_base: 0.34
+    track_width: 0.30
+    wheel_radius: 0.065
+    emergency_stop: true
+    serial_port: /dev/chassis
+    serial_baudrate: 115200
+    serial_enabled: false
+    serial_protocol: placeholder_v1
+    serial_write_period_sec: 0.05
+    serial_read_timeout_sec: 0.02

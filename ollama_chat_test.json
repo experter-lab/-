@@ -1,0 +1,10 @@
+{
+  "model": "deepseek-r1:1.5b",
+  "messages": [
+    {
+      "role": "user",
+      "content": "用一句中文回答：你现在可以运行吗？"
+    }
+  ],
+  "stream": false
+}

@@ -1,0 +1,19 @@
+[Unit]
+Description=RK3588 medicine robot chassis bridge
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/mnt/sdcard/medicine_robot_ws
+
+[Service]
+Type=simple
+User=elf
+WorkingDirectory=/mnt/sdcard/medicine_robot_ws
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/bin/bash -lc 'source /opt/ros/humble/setup.bash && source /mnt/sdcard/medicine_robot_ws/install/setup.bash && exec ros2 launch medicine_chassis_bridge chassis_bridge.launch.py params_file:=/mnt/sdcard/medicine_robot_ws/install/medicine_chassis_bridge/share/medicine_chassis_bridge/config/chassis_bridge_ardupilot_serial_readonly.yaml'
+Restart=on-failure
+RestartSec=5
+KillSignal=SIGINT
+TimeoutStopSec=15
+
+[Install]
+WantedBy=multi-user.target

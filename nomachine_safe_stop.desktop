@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=安全停止
+Comment=Stop chassis and re-enable software emergency stop
+Exec=gnome-terminal -- bash -lc "/mnt/sdcard/nomachine_safe_stop.sh"
+Icon=process-stop
+Terminal=false
+Categories=Utility;

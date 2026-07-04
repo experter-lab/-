@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=保存Cartographer地图
+Comment=Save current Cartographer map
+Exec=gnome-terminal -- bash -lc "/mnt/sdcard/nomachine_save_carto_map.sh"
+Icon=document-save
+Terminal=false
+Categories=Utility;

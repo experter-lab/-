@@ -1,0 +1,20 @@
+[Unit]
+Description=RK3588 medicine delivery web dashboard
+Wants=network-online.target
+After=network-online.target rk3588-chassis-bridge.service
+RequiresMountsFor=/mnt/sdcard/medicine_robot_ws
+
+[Service]
+Type=simple
+User=elf
+WorkingDirectory=/mnt/sdcard/medicine_robot_ws
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/mnt/sdcard/rk3588_start_delivery_batch_web_8085.sh
+ExecStop=/mnt/sdcard/rk3588_delivery_webctl.sh stop
+Restart=on-failure
+RestartSec=5
+KillSignal=SIGINT
+TimeoutStopSec=20
+
+[Install]
+WantedBy=multi-user.target

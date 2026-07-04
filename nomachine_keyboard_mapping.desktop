@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=键盘建图控制
+Comment=Open keyboard drive for Cartographer mapping
+Exec=gnome-terminal -- bash -lc "/mnt/sdcard/nomachine_keyboard_mapping.sh"
+Icon=input-keyboard
+Terminal=false
+Categories=Utility;

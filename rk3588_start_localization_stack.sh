@@ -20,12 +20,8 @@ fi
 
 sleep 5
 
-if node_exists /CLaserOdometry2DNode; then
-  echo "rf2o already running"
-else
-  nohup ros2 run rf2o_laser_odometry rf2o_laser_odometry_node --ros-args -p laser_scan_topic:=/scan -p odom_topic:=/odom -p publish_tf:=true -p base_frame_id:=base_link -p odom_frame_id:=odom -p freq:=7.0 > /tmp/rk3588_rf2o.log 2>&1 &
-  echo "started rf2o pid=$!"
-fi
+echo "starting guarded RF2O + IMU + EKF odom fusion"
+/mnt/sdcard/rk3588_start_odom_fusion.sh
 
 sleep 5
 

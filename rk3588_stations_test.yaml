@@ -1,0 +1,41 @@
+stations:
+  pharmacy:
+    name: 当前点/药房
+    x: 1.382
+    y: -0.017
+    yaw: -0.045
+  test_forward_20:
+    name: 前方20cm测试点
+    x: 1.582
+    y: -0.027
+    yaw: -0.045
+  test_back_30:
+    name: 后方30cm测试点
+    x: 1.082
+    y: -0.004
+    yaw: -0.045
+  test_back_40:
+    name: 后方40cm测试点
+    x: 1.005
+    y: 0.022
+    yaw: -0.013
+  ward_a:
+    name: A测试点/前方20cm
+    x: 1.582
+    y: -0.027
+    yaw: -0.045
+  ward_b:
+    name: B测试点/后方30cm
+    x: 1.082
+    y: -0.004
+    yaw: -0.045
+  ward_c:
+    name: C测试点/前方40cm规划点
+    x: 1.781
+    y: -0.036
+    yaw: -0.045
+  nurse_station:
+    name: 护士站/当前点别名
+    x: 1.382
+    y: -0.017
+    yaw: -0.045

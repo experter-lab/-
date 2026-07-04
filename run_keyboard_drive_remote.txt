@@ -1,0 +1,1 @@
+bash -lc 'source /opt/ros/humble/setup.bash; source /mnt/sdcard/medicine_robot_ws/install/setup.bash; python3 /mnt/sdcard/rk3588_keyboard_drive.py; echo; echo "keyboard drive exited. Press Ctrl+D to close this shell."; exec bash'

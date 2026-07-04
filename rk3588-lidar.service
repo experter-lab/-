@@ -1,0 +1,21 @@
+[Unit]
+Description=RK3588 RPLIDAR S1 bringup
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/mnt/sdcard/medicine_robot_ws
+
+[Service]
+Type=simple
+User=elf
+WorkingDirectory=/mnt/sdcard/medicine_robot_ws
+Environment=PYTHONUNBUFFERED=1
+KillMode=control-group
+ExecStartPre=/bin/bash -lc 'pkill -f "[r]os2.*param.*get.*/s[l]lidar_node" || true; pkill -x sllidar_node || true; pkill -f "[r]k3588_lidar_bringup.launch.py" || true; pkill -f "[s]tatic_transform_publisher.*base_to_laser_tf" || true; sleep 1'
+ExecStart=/mnt/sdcard/rk3588_start_lidar.sh
+Restart=on-failure
+RestartSec=3
+KillSignal=SIGINT
+TimeoutStopSec=15
+
+[Install]
+WantedBy=multi-user.target
