@@ -6,7 +6,7 @@
 
 | 目录 | 内容 |
 | --- | --- |
-| `board_sync/` | RK3588 板端 ROS 2 功能包同步源码，包括 Web Dashboard、药品视觉识别、语音桥接等。 |
+| `board_sync/` | RK3588 板端 ROS 2 功能包同步源码，包括 Web Dashboard、药品视觉识别、语音交互、语音桥接等。 |
 | `patient_web/` | 患者端前端工程。 |
 | `src/` | 根目录镜像出来的核心 Python/C++ 辅助源码，例如 Dashboard 镜像、数据库集成、雷达驱动补丁等。 |
 | `scripts/` | 部署、启动、同步、调试脚本，按 RK3588 功能域继续细分。 |
@@ -57,7 +57,7 @@
 
 ## 当前顶层跟踪文件数量
 
-- `board_sync/`: 28 个文件
+- `board_sync/`: 51 个文件
 - `configs/`: 41 个文件
 - `docs/`: 28 个文件
 - `maps/`: 5 个文件

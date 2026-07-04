@@ -121,7 +121,7 @@ tmp_*
 rknn_ppocr*/
 platform-tools/
 Linux_awaken*/
-M2*/
+/M2*/
 1.*/
 2.*/
 3.*/
@@ -152,3 +152,6 @@ _utf8_write_test.md
 docs/codex-worklog.md
 docs/codex-session-summary.md
 docs/rk3588-backup-restore.md
+
+# Local-only organized artifacts (not for GitHub)
+local_artifacts/

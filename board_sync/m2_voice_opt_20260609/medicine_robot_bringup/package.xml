@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>medicine_robot_bringup</name>
+  <version>0.0.1</version>
+  <description>Bringup launch files for the medicine delivery robot.</description>
+  <maintainer email="user@example.com">cgz</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <exec_depend>ament_index_python</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>medicine_task_manager</exec_depend>
+  <exec_depend>medicine_voice_interaction</exec_depend>
+  <exec_depend>medicine_chassis_bridge</exec_depend>
+  <!-- wheeltec_aikit_esr is optional and guarded by enable_aikit_esr. -->
+  <exec_depend>medicine_web_dashboard</exec_depend>
+  <exec_depend>sllidar_ros2</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
